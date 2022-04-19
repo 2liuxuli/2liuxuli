@@ -1,2 +1,2 @@
 int a = 'll'
-print(a)
+print(a

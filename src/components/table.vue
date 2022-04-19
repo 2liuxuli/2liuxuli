@@ -10,7 +10,8 @@
     <button @click="btn">
       处理 ref和 refs
     </button>
-    <span v-pre>{{ this will not be compiled }}</span>
+
+    <p>child.number {{ number }}</p>
     <teleport to="#some">
       <div>
         任意门
@@ -21,15 +22,16 @@
 
 
 <script setup>
-import { defineProps, defineEmits, reactive, ref, toRef, toRefs } from 'vue'
+import { defineProps, defineEmits, reactive, ref, toRef, toRefs, watch } from 'vue'
 
-defineProps({
+const props = defineProps({
   data: {
     type: Array,
     defaule: [
       {name: '名字'}
     ]
-  }
+  },
+  number: Number
 })
 const emits = defineEmits(['handleBtn'])
 const handleBtn = () => {
@@ -52,6 +54,11 @@ const btn = () => {
   console.log(tempValue, 'name', tempValue1);
   console.log(obj, 'obj');
 }
+
+console.log(props.number, 'props.number');
+watch(props.number, ((v1) => {
+  console.log(v1, 'v1');
+}))
 // console.log(defineEmits, 'defineEmits');
 
 

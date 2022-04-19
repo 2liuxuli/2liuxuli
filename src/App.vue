@@ -4,11 +4,40 @@
   <button @click="count++">{{ count }}</button>
   <HelloWorld/> -->
   <!-- <div id="some" /> -->
-  <router-view />
+  <div>
+    <button @click="pathClick">跳转 home 页</button>
+    <router-view v-slot="{ Component }">
+      <transition>
+          <component :is="Component" />
+      </transition>
+    </router-view>
+  </div>
 </template>
 
-<script setup>
-
+<script>
+import { toRefs, reactive } from 'vue'
+import { useRouter } from 'vue-router'
+  export default {
+    setup() {
+      const router = useRouter()
+      const state = reactive({
+        num: 1
+      })
+      
+      const pathClick = () => {
+        router.push({
+          path: '/home',
+          query: {
+            name: '啦啦啦'
+          }
+        })
+      }
+      return {
+        ...toRefs(state),
+        pathClick
+      }
+    }
+  }
 </script>
 
 
